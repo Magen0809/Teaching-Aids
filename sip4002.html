@@ -17,7 +17,7 @@
             max-width: 600px;
             margin: auto;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+            background-color: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
             margin-top: 100px;
         }
@@ -64,7 +64,7 @@
         }
         .forum h2 {
             font-size: 18px;
-            margin: 0 0 10px;
+            margin: 10px 0 10px;
         }
         .forum textarea {
             width: 100%;
@@ -104,25 +104,36 @@
             padding: 5px;
             background-color: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
-
-         .telegram-box {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 300px;
-            height: auto;
         }
-        .telegram-box img {
-            max-width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        .telegram-link {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .telegram-link img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .telegram-link a {
+            color: #1E90FF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .telegram-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <!-- Forum Box -->
     <div class="forum">
+        <!-- Telegram Link -->
+        <div class="telegram-link">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/1024px-Telegram_logo.svg.png" alt="Telegram Icon">
+            <a href="https://t.me/+5TfqVcQpCnVlY2Nl" target="_blank">Join our Telegram Channel</a>
+        </div>
+
         <h2>Forum: Post Your Queries!</h2>
         <textarea id="queryInput" rows="4" placeholder="Enter your query here..." required></textarea>
         <button onclick="submitQuery()">Submit</button>
@@ -131,11 +142,6 @@
         <div class="messages" id="messageBox">
             <!-- Past messages will appear here -->
         </div>
-    </div>
-
-    <!-- Telegram Box -->
-    <div class="telegram-box">
-        <img src="https://drive.google.com/uc?export=view&id=1xwTjISr4C5Tv-vOqE1zhBgtS-Dm2UshF" alt="Join Telegram">
     </div>
 
     <div class="container">
