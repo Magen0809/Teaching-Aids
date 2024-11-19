@@ -50,29 +50,37 @@
         .links a:hover {
             text-decoration: underline;
         }
-        /* Chatbox styling */
-        .chatbox {
+        /* Forum styling */
+        .forum {
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 300px;
+            width: 400px;
             background-color: rgba(0, 0, 0, 0.9);
             border-radius: 10px;
             color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        .chatbox-header {
+        .forum-header {
+            display: flex;
+            align-items: center;
             padding: 10px;
             background-color: #007BFF;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             font-weight: bold;
-            text-align: center;
         }
-        .chatbox-body {
+        .forum-header img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .forum-body {
             padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
         }
-        .chatbox-body textarea {
+        .forum-body textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -81,7 +89,7 @@
             resize: none;
             font-size: 14px;
         }
-        .chatbox-body button {
+        .forum-body button {
             width: 100%;
             padding: 10px;
             background-color: #007BFF;
@@ -91,7 +99,7 @@
             font-size: 16px;
             cursor: pointer;
         }
-        .chatbox-body button:hover {
+        .forum-body button:hover {
             background-color: #0056b3;
         }
     </style>
@@ -116,15 +124,18 @@
         <div class="links" id="links"></div>
     </div>
 
-    <!-- Chatbox -->
-    <div class="chatbox">
-        <div class="chatbox-header">Contact Admin</div>
-        <div class="chatbox-body">
-            <form id="chatboxForm">
-                <textarea id="message" name="message" rows="4" placeholder="Enter your message here..." required></textarea>
-                <button type="submit">Send Message</button>
+    <!-- Forum -->
+    <div class="forum">
+        <div class="forum-header">
+            <img src="Telegram Mathlytic_qrcode.png" alt="QR Code">
+            Forum: Discuss Resources
+        </div>
+        <div class="forum-body">
+            <form id="forumForm">
+                <textarea id="forumMessage" name="forumMessage" rows="4" placeholder="Enter your message here..." required></textarea>
+                <button type="submit">Post Message</button>
             </form>
-            <div id="chatboxResponse" style="margin-top: 10px; color: #00ff00;"></div>
+            <div id="forumResponse" style="margin-top: 10px; color: #00ff00;"></div>
         </div>
     </div>
 
@@ -183,14 +194,14 @@
             }
         }
 
-        // Handle form submission
-        document.getElementById("chatboxForm").addEventListener("submit", function (e) {
+        // Handle forum form submission
+        document.getElementById("forumForm").addEventListener("submit", function (e) {
             e.preventDefault(); // Prevent default form submission
-            const message = document.getElementById("message").value;
-            const responseDiv = document.getElementById("chatboxResponse");
+            const message = document.getElementById("forumMessage").value;
+            const responseDiv = document.getElementById("forumResponse");
 
             // Send data to the backend using Fetch API
-            fetch("send_email.php", {
+            fetch("post_to_forum.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
@@ -200,7 +211,7 @@
                 .then(response => response.text())
                 .then(data => {
                     responseDiv.textContent = data; // Display response message
-                    document.getElementById("message").value = ""; // Clear input
+                    document.getElementById("forumMessage").value = ""; // Clear input
                 })
                 .catch(error => {
                     responseDiv.textContent = "An error occurred. Please try again.";
