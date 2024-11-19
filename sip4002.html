@@ -88,14 +88,36 @@
         .forum button:hover {
             background-color: #0056b3;
         }
+
+        /* Message Box Styling */
+        .messages {
+            margin-top: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+        .messages p {
+            margin: 5px 0;
+            padding: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <!-- Forum Box -->
     <div class="forum">
         <h2>Forum: Post Your Queries!</h2>
-        <textarea rows="4" placeholder="Enter your query here..." required></textarea>
-        <button>Submit</button>
+        <textarea id="queryInput" rows="4" placeholder="Enter your query here..." required></textarea>
+        <button onclick="submitQuery()">Submit</button>
+        
+        <!-- Messages Box -->
+        <div class="messages" id="messageBox">
+            <!-- Past messages will appear here -->
+        </div>
     </div>
 
     <div class="container">
@@ -128,6 +150,8 @@
                 { name: "Logical Reasoning", urlNotes: "https://drive.google.com/file/d/1-U_OfFpoFnxBgJy-FCyxP5bbcb6UUB2H/view?usp=sharing", urlExercises: "https://example.com/form4/trigonometry-exercises" }
             ]
         };
+
+        const messages = []; // Array to store past messages
 
         function updateTopics() {
             const form = document.getElementById("form").value;
@@ -171,6 +195,22 @@
                 linksDiv.textContent = "Please select both Form and Topic.";
             }
         }
+
+        function submitQuery() {
+            const queryInput = document.getElementById("queryInput").value;
+            const messageBox = document.getElementById("messageBox");
+
+            if (queryInput.trim() !== "") {
+                messages.push(queryInput); // Save the message
+                const message = document.createElement("p");
+                message.textContent = queryInput;
+                messageBox.appendChild(message); // Display in the messages box
+                document.getElementById("queryInput").value = ""; // Clear input
+            } else {
+                alert("Please enter a query before submitting.");
+            }
+        }
     </script>
 </body>
 </html>
+
