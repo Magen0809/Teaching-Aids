@@ -50,6 +50,50 @@
         .links a:hover {
             text-decoration: underline;
         }
+        /* Chatbox styling */
+        .chatbox {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .chatbox-header {
+            padding: 10px;
+            background-color: #007BFF;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .chatbox-body {
+            padding: 10px;
+        }
+        .chatbox-body textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+            resize: none;
+            font-size: 14px;
+        }
+        .chatbox-body button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .chatbox-body button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -70,6 +114,18 @@
         <button onclick="showLinks()">View Resources</button>
 
         <div class="links" id="links"></div>
+    </div>
+
+    <!-- Chatbox -->
+    <div class="chatbox">
+        <div class="chatbox-header">Contact Admin</div>
+        <div class="chatbox-body">
+            <form id="chatboxForm">
+                <textarea id="message" name="message" rows="4" placeholder="Enter your message here..." required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <div id="chatboxResponse" style="margin-top: 10px; color: #00ff00;"></div>
+        </div>
     </div>
 
     <script>
@@ -126,6 +182,30 @@
                 linksDiv.textContent = "Please select both Form and Topic.";
             }
         }
+
+        // Handle form submission
+        document.getElementById("chatboxForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent default form submission
+            const message = document.getElementById("message").value;
+            const responseDiv = document.getElementById("chatboxResponse");
+
+            // Send data to the backend using Fetch API
+            fetch("send_email.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `message=${encodeURIComponent(message)}`
+            })
+                .then(response => response.text())
+                .then(data => {
+                    responseDiv.textContent = data; // Display response message
+                    document.getElementById("message").value = ""; // Clear input
+                })
+                .catch(error => {
+                    responseDiv.textContent = "An error occurred. Please try again.";
+                });
+        });
     </script>
 </body>
 </html>
