@@ -1,0 +1,21 @@
+<?php
+// Set the recipient email
+$recipient = "u2103639@siswa.um.edu.my";
+
+// Validate the message input
+if (isset($_POST['message']) && !empty($_POST['message'])) {
+    $message = htmlspecialchars($_POST['message']); // Sanitize input
+    $subject = "Message from Chatbox";
+    $headers = "From: noreply@yourdomain.edu\r\n"; // Ensure .edu header
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    // Send email
+    if (mail($recipient, $subject, $message, $headers)) {
+        echo "Your message has been sent successfully.";
+    } else {
+        echo "Failed to send your message. Please try again.";
+    }
+} else {
+    echo "Please enter a message before sending.";
+}
+?>
