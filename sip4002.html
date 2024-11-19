@@ -50,65 +50,41 @@
         .links a:hover {
             text-decoration: underline;
         }
-        /* Layout for QR and Forum */
-        .sidebar-container {
+
+        /* Positioning for forum and QR code */
+        .top-left-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
             display: flex;
-            justify-content: space-between;
-            padding: 20px;
+            flex-direction: column;
+            align-items: flex-start;
         }
-        .qr-section {
-            flex: 1;
-            text-align: center;
-            margin-right: 20px;
-        }
-        .qr-section img {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 10px;
-        }
-        .forum {
-            flex: 2;
+
+        .forum-small {
+            width: 200px;
+            height: 50px;
             background-color: rgba(0, 0, 0, 0.9);
             border-radius: 10px;
-            color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        .forum-header {
             display: flex;
             align-items: center;
-            padding: 10px;
-            background-color: #007BFF;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            font-weight: bold;
             justify-content: center;
-        }
-        .forum-body {
-            padding: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        .forum-body textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: none;
-            resize: none;
-            font-size: 14px;
-        }
-        .forum-body button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
+            font-size: 12px;
             color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            padding: 5px;
         }
-        .forum-body button:hover {
-            background-color: #0056b3;
+
+        .qr-small {
+            width: 100px;
+            height: 100px;
+        }
+
+        .qr-small img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -132,26 +108,16 @@
         <div class="links" id="links"></div>
     </div>
 
-    <div class="sidebar-container">
-        <!-- QR Section -->
-        <div class="qr-section">
-            <h3>Scan to Join</h3>
-            <img src="Telegram Mathlytic_qrcode.png" alt="QR Code">
-            <p>Join our Telegram group for updates!</p>
+    <!-- Top-left container -->
+    <div class="top-left-container">
+        <!-- Small Forum -->
+        <div class="forum-small">
+            Forum: Post your queries!
         </div>
 
-        <!-- Forum Section -->
-        <div class="forum">
-            <div class="forum-header">
-                Forum: Discuss Resources
-            </div>
-            <div class="forum-body">
-                <form id="forumForm">
-                    <textarea id="forumMessage" name="forumMessage" rows="4" placeholder="Enter your message here..." required></textarea>
-                    <button type="submit">Post Message</button>
-                </form>
-                <div id="forumResponse" style="margin-top: 10px; color: #00ff00;"></div>
-            </div>
+        <!-- Small QR Code -->
+        <div class="qr-small">
+            <img src="Telegram Mathlytic_qrcode.png" alt="QR Code">
         </div>
     </div>
 
@@ -209,30 +175,6 @@
                 linksDiv.textContent = "Please select both Form and Topic.";
             }
         }
-
-        // Handle forum form submission
-        document.getElementById("forumForm").addEventListener("submit", function (e) {
-            e.preventDefault(); // Prevent default form submission
-            const message = document.getElementById("forumMessage").value;
-            const responseDiv = document.getElementById("forumResponse");
-
-            // Send data to the backend using Fetch API
-            fetch("post_to_forum.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: `message=${encodeURIComponent(message)}`
-            })
-                .then(response => response.text())
-                .then(data => {
-                    responseDiv.textContent = data; // Display response message
-                    document.getElementById("forumMessage").value = ""; // Clear input
-                })
-                .catch(error => {
-                    responseDiv.textContent = "An error occurred. Please try again.";
-                });
-        });
     </script>
 </body>
 </html>
