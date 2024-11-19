@@ -50,12 +50,24 @@
         .links a:hover {
             text-decoration: underline;
         }
-        /* Forum styling */
+        /* Layout for QR and Forum */
+        .sidebar-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .qr-section {
+            flex: 1;
+            text-align: center;
+            margin-right: 20px;
+        }
+        .qr-section img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
         .forum {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 400px;
+            flex: 2;
             background-color: rgba(0, 0, 0, 0.9);
             border-radius: 10px;
             color: #fff;
@@ -69,11 +81,7 @@
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             font-weight: bold;
-        }
-        .forum-header img {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
+            justify-content: center;
         }
         .forum-body {
             padding: 10px;
@@ -124,18 +132,26 @@
         <div class="links" id="links"></div>
     </div>
 
-    <!-- Forum -->
-    <div class="forum">
-        <div class="forum-header">
+    <div class="sidebar-container">
+        <!-- QR Section -->
+        <div class="qr-section">
+            <h3>Scan to Join</h3>
             <img src="Telegram Mathlytic_qrcode.png" alt="QR Code">
-            Forum: Discuss Resources
+            <p>Join our Telegram group for updates!</p>
         </div>
-        <div class="forum-body">
-            <form id="forumForm">
-                <textarea id="forumMessage" name="forumMessage" rows="4" placeholder="Enter your message here..." required></textarea>
-                <button type="submit">Post Message</button>
-            </form>
-            <div id="forumResponse" style="margin-top: 10px; color: #00ff00;"></div>
+
+        <!-- Forum Section -->
+        <div class="forum">
+            <div class="forum-header">
+                Forum: Discuss Resources
+            </div>
+            <div class="forum-body">
+                <form id="forumForm">
+                    <textarea id="forumMessage" name="forumMessage" rows="4" placeholder="Enter your message here..." required></textarea>
+                    <button type="submit">Post Message</button>
+                </form>
+                <div id="forumResponse" style="margin-top: 10px; color: #00ff00;"></div>
+            </div>
         </div>
     </div>
 
